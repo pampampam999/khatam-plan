@@ -1,3 +1,5 @@
+import datetime
+
 #Data 
 JUZ = [
         148,
@@ -35,5 +37,10 @@ JUZ = [
 def Juz(inputJuz):
     return JUZ[inputJuz-1]
 
+target = datetime.datetime(2023,4,24)
+print(target.strftime("%d %m %Y"))
+now = datetime.datetime.now()
+print(now.strftime("%d %m %Y"))
 
-print(Juz(1))
+result=target - now
+print("{} Hari lagi".format(result.days))
