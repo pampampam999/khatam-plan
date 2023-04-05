@@ -37,16 +37,29 @@ JUZ = [
 def Juz(inputJuz):
     return JUZ[inputJuz-1]
 
-#input  
+#input target
 inputTargetDay = int(input("Target Khatam (D) :"))
-inputTargetMon = int(input("Target Khatam (M):"))
-inputTargetYear = int(input("Target Khatam (Y):"))
+inputTargetMon = int(input("Target Khatam (M) :"))
+inputTargetYear = int(input("Target Khatam (Y) :"))
 #print(inputTargetDay,inputTargetMon,inputTargetYear)
 
 targetKhatam = datetime.datetime(inputTargetYear,inputTargetMon,inputTargetDay)
 print(targetKhatam.strftime("%d %m %Y"))
-now = datetime.datetime.now()
-print(now.strftime("%d %m %Y"))
 
-result=targetKhatam - now
-print("{} Hari lagi".format(result.days))
+#input start date
+inputStartDay = int(input("Start Read (D) :"))
+inputStartMon = int(input("Start Read (M) :"))
+inputStartYear = int(input("Start Read (Y) :"))
+#print(inputStartDay,inputStartMon,inputStartYear)
+
+#now = datetime.datetime.now()
+startDate = datetime.datetime(inputStartYear,inputStartMon,inputStartDay)
+#print(now.strftime("%d %m %Y"))
+print(startDate.strftime("%d %m %Y"))
+
+#calcuating days left
+resultDay=targetKhatam - startDate
+print("{} Hari lagi".format(resultDay.days))
+
+#last read
+lastRead = int(input("Last read (juz):"))
