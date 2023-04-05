@@ -37,10 +37,16 @@ JUZ = [
 def Juz(inputJuz):
     return JUZ[inputJuz-1]
 
-target = datetime.datetime(2023,4,24)
-print(target.strftime("%d %m %Y"))
+#input  
+inputTargetDay = int(input("Target Khatam (D) :"))
+inputTargetMon = int(input("Target Khatam (M):"))
+inputTargetYear = int(input("Target Khatam (Y):"))
+#print(inputTargetDay,inputTargetMon,inputTargetYear)
+
+targetKhatam = datetime.datetime(inputTargetYear,inputTargetMon,inputTargetDay)
+print(targetKhatam.strftime("%d %m %Y"))
 now = datetime.datetime.now()
 print(now.strftime("%d %m %Y"))
 
-result=target - now
+result=targetKhatam - now
 print("{} Hari lagi".format(result.days))
