@@ -151,8 +151,20 @@ SURAH = [
 
 ]
 
-def Juz(inputJuz):
-    return JUZ[inputJuz-1]
+def cekJuz(InputTotalAyat):
+    hasilJuz = 1
+    tempJuz = 0
+    for i in range(31):
+        if InputTotalAyat < tempJuz:
+            #print("{} kurang dari {}".format(InputTotalAyat,tempJuz))
+            hasilJuz = i
+            #print("Juz ke",i)
+            break
+        else:
+            tempJuz += JUZ[i]    
+        
+    return hasilJuz
+    
 
 # #input target
 # inputTargetDay = int(input("Target Khatam (D) :"))
@@ -193,6 +205,8 @@ for i in range(lastReadSurah-1):
 # jumlah nya di tambah dengan ayat terakhir
 totalAyat += lastReadAyat
 print("Total ayat : ",totalAyat)
+
+print(cekJuz(totalAyat))
 
 
 
