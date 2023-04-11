@@ -155,7 +155,7 @@ def cekJuz(InputTotalAyat):
     hasilJuz = 1
     tempJuz = 0
     for i in range(31):
-        if InputTotalAyat < tempJuz:
+        if InputTotalAyat <= tempJuz:
             #print("{} kurang dari {}".format(InputTotalAyat,tempJuz))
             hasilJuz = i
             #print("Juz ke",i)
