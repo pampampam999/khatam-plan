@@ -1,6 +1,7 @@
 import datetime
 
 #Data 
+TOTALAYATALQURAN = 6236
 JUZ = [
         148,
         111,
@@ -150,6 +151,7 @@ SURAH = [
     6,
 
 ]
+BOBOT = []
 
 def cekJuz(InputTotalAyat):
     hasilJuz = 1
@@ -206,7 +208,26 @@ for i in range(lastReadSurah-1):
 totalAyat += lastReadAyat
 print("Total ayat : ",totalAyat)
 
-print(cekJuz(totalAyat))
+
+
+#kurang berapa ayat sampai selesai
+totalKurangAyat =  TOTALAYATALQURAN - totalAyat
+print("Kurang ayat : ",totalKurangAyat)
+
+#mencari kurang brp ayat di juz itu
+temp= totalAyat #temp untuk menghitung ayat pada juz itu
+
+for i in range(cekJuz(totalAyat) - 1):
+    temp -= JUZ[i]
+    #print("Temp di kurangi dengan Juz {} yaitu sebanyak {} ayat, sehingga {}".format(cekJuz(totalAyat)-1,JUZ[i],temp))
+print("Kurang {} ayat untuk menuju Juz {}".format(JUZ[cekJuz(totalAyat)-1]-temp,cekJuz(totalAyat)+1))
+sekian = 1- (temp / JUZ[cekJuz(totalAyat)-1]) 
+
+#cek kurang brp juz
+print("Sekarang Juz :",cekJuz(totalAyat))
+totalKurangJuz = 30 - cekJuz(totalAyat)
+print("Detail Kurang Juz :",totalKurangJuz + sekian)
+
 
 
 
