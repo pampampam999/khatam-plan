@@ -151,7 +151,15 @@ SURAH = [
     6,
 
 ]
-BOBOT = []
+
+BOBOT = list()
+for i in range(30):
+    temp=100/JUZ[i]
+    BOBOT.append(temp)
+    print(i,BOBOT[i])
+
+
+########################################################################
 
 def cekJuz(InputTotalAyat):
     hasilJuz = 1
