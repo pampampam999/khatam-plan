@@ -151,12 +151,13 @@ SURAH = [
     6,
 
 ]
+BOBOTPERJUS=1000
 
 BOBOT = list()
 for i in range(30):
-    temp=100/JUZ[i]
+    temp=BOBOTPERJUS/JUZ[i]
     BOBOT.append(temp)
-    print(i,BOBOT[i])
+    #print(i,BOBOT[i])
 
 
 ########################################################################
@@ -164,14 +165,17 @@ for i in range(30):
 def cekJuz(InputTotalAyat):
     hasilJuz = 1
     tempJuz = 0
-    for i in range(31):
-        if InputTotalAyat <= tempJuz:
-            #print("{} kurang dari {}".format(InputTotalAyat,tempJuz))
-            hasilJuz = i
-            #print("Juz ke",i)
-            break
-        else:
-            tempJuz += JUZ[i]    
+    if InputTotalAyat == 0:
+        pass
+    else:
+        for i in range(31):
+            if InputTotalAyat <= tempJuz:
+                #print("{} kurang dari {}".format(InputTotalAyat,tempJuz))
+                hasilJuz = i
+                #print("Juz ke",i)
+                break
+            else:
+                tempJuz += JUZ[i]    
         
     return hasilJuz
     
@@ -207,20 +211,28 @@ lastReadSurah = int(input("Last Read (surah):")) #surah ke 2
 #calculating total surah has read
 #Get total ayat in surah has read
 totalAyat = 0
-for i in range(lastReadSurah-1):
-    #print(i, SURAH[i])
-    totalAyat += SURAH[i]
-    #print("Total",totalAyat)
+
+if lastReadSurah == 0:
+    pass
+else:
+    for i in range(lastReadSurah-1):
+        #print(i, SURAH[i])
+        totalAyat += SURAH[i]
+        #print("Total",totalAyat)
 
 # jumlah nya di tambah dengan ayat terakhir
 totalAyat += lastReadAyat
 print("Total ayat : ",totalAyat)
 
 
+#cek sekarang juz brp
+sekarangJuz=cekJuz(totalAyat)
+
 
 #kurang berapa ayat sampai selesai
 totalKurangAyat =  TOTALAYATALQURAN - totalAyat
 print("Kurang ayat : ",totalKurangAyat)
+
 
 #mencari kurang brp ayat di juz itu
 temp= totalAyat #temp untuk menghitung ayat pada juz itu
@@ -228,13 +240,64 @@ temp= totalAyat #temp untuk menghitung ayat pada juz itu
 for i in range(cekJuz(totalAyat) - 1):
     temp -= JUZ[i]
     #print("Temp di kurangi dengan Juz {} yaitu sebanyak {} ayat, sehingga {}".format(cekJuz(totalAyat)-1,JUZ[i],temp))
-print("Kurang {} ayat untuk menuju Juz {}".format(JUZ[cekJuz(totalAyat)-1]-temp,cekJuz(totalAyat)+1))
+totalKurangAyatDiJuzItu=JUZ[cekJuz(totalAyat)-1]-temp
+print("Kurang {} ayat untuk menuju Juz {}".format(totalKurangAyatDiJuzItu,cekJuz(totalAyat)+1))
 sekian = 1- (temp / JUZ[cekJuz(totalAyat)-1]) 
+
 
 #cek kurang brp juz
 print("Sekarang Juz :",cekJuz(totalAyat))
-totalKurangJuz = 30 - cekJuz(totalAyat)
+totalKurangJuz = 30 - sekarangJuz
 print("Detail Kurang Juz :",totalKurangJuz + sekian)
+
+#cek kurang bobot menuju akhir dari kurang brp ayat menuju akhir
+kurangBobot=( totalKurangJuz * BOBOTPERJUS)+(totalKurangAyatDiJuzItu * BOBOT[sekarangJuz-1])
+print("Total Kurang Bobot",kurangBobot)
+bobotHarian = kurangBobot / 30#int(resultDay.days)  #ubah hari left di sini
+print("Bobot Harian :",bobotHarian)
+
+
+#mencari sampai ayat berapa harus membaca
+tempHitungAyat = totalAyat
+tempBobotHarian = bobotHarian
+tempStatusLoop = 1
+# i=0
+# while i<10:
+#     print(i)
+#     i+=1
+
+for i in range(30):
+    while tempStatusLoop:
+        #cek bobot ayat selanjutnya
+        bobotAyatSelanjutnya=BOBOT[cekJuz(tempHitungAyat +1)-1]
+        #print("Bobot Ayat Selanjutnya", bobotAyatSelanjutnya)
+
+
+        #print("Bobot harian sebelum",tempBobotHarian)
+        if tempBobotHarian- bobotAyatSelanjutnya >0: #jika ayat selanjutnya dapat di baca dengan score bobot sekarang
+            #print("Bobot harian {} jika di kurang bobot selanjutnya {}, hasilnya masih positif".format(tempBobotHarian,bobotAyatSelanjutnya))
+            tempBobotHarian-=bobotAyatSelanjutnya
+            #print("Bobot harian setelah di kurangi",tempBobotHarian)
+            tempHitungAyat+=1
+            #print("Total Ayat menjadi",tempHitungAyat)
+            #print("")
+            
+        else:
+            tempStatusLoop=False        
+            tempBobotHarian += bobotHarian
+
+            #karena berhenti di 6235 (kurang1  ayat) maka menambahkan score biar selesai perhitungan
+            if tempHitungAyat == 6235:
+                tempHitungAyat += 1
+
+            print("Bobot harian sebelum {} di tambah bobot harian hari berikutnya {}".format(tempBobotHarian-bobotHarian,tempBobotHarian))
+    
+    print("Hari ke {} sampai ayat ke {}".format(i+1,tempHitungAyat))
+    tempStatusLoop = 1
+
+# for i,bobot in enumerate(BOBOT):
+#     print(i,bobot,bobot*JUZ[i])
+        
 
 
 
