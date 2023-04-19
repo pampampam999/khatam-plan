@@ -180,31 +180,31 @@ def cekJuz(InputTotalAyat):
     return hasilJuz
     
 
-# #input target
-# inputTargetDay = int(input("Target Khatam (D) :"))
-# inputTargetMon = int(input("Target Khatam (M) :"))
-# inputTargetYear = int(input("Target Khatam (Y) :"))
-# #print(inputTargetDay,inputTargetMon,inputTargetYear)
+#input target
+inputTargetDay = int(input("Target Khatam (D) :"))
+inputTargetMon = int(input("Target Khatam (M) :"))
+inputTargetYear = int(input("Target Khatam (Y) :"))
+#print(inputTargetDay,inputTargetMon,inputTargetYear)
 
-# targetKhatam = datetime.datetime(inputTargetYear,inputTargetMon,inputTargetDay)
-# print(targetKhatam.strftime("%d %m %Y"))
+targetKhatam = datetime.datetime(inputTargetYear,inputTargetMon,inputTargetDay)
+print(targetKhatam.strftime("%d %m %Y"))
 
-# #input start date
-# inputStartDay = int(input("Start Read (D) :"))
-# inputStartMon = int(input("Start Read (M) :"))
-# inputStartYear = int(input("Start Read (Y) :"))
-# #print(inputStartDay,inputStartMon,inputStartYear)
+#input start date
+inputStartDay = int(input("Start Read (D) :"))
+inputStartMon = int(input("Start Read (M) :"))
+inputStartYear = int(input("Start Read (Y) :"))
+#print(inputStartDay,inputStartMon,inputStartYear)
 
-# #now = datetime.datetime.now()
-# startDate = datetime.datetime(inputStartYear,inputStartMon,inputStartDay)
-# #print(now.strftime("%d %m %Y"))
-# print(startDate.strftime("%d %m %Y"))
+#now = datetime.datetime.now()
+startDate = datetime.datetime(inputStartYear,inputStartMon,inputStartDay)
+#print(now.strftime("%d %m %Y"))
+print(startDate.strftime("%d %m %Y"))
 
-# #calcuating days left
-# resultDay=targetKhatam - startDate
-#hariMenujuKhatam = resultDay.days
-hariMenujuKhatam = 16
-# print("{} Hari lagi".format(hariMenjuKhatam))
+#calcuating days left
+resultDay=targetKhatam - startDate
+hariMenujuKhatam = resultDay.days
+# hariMenujuKhatam = 16 #manual input , don't forget to coment
+print("{} Hari lagi".format(hariMenujuKhatam))
 
 #input last read
 lastReadAyat = int(input("Last Read (ayat):")) # ayat ke 2
@@ -243,7 +243,11 @@ for i in range(cekJuz(totalAyat) - 1):
     temp -= JUZ[i]
     #print("Temp di kurangi dengan Juz {} yaitu sebanyak {} ayat, sehingga {}".format(cekJuz(totalAyat)-1,JUZ[i],temp))
 totalKurangAyatDiJuzItu=JUZ[cekJuz(totalAyat)-1]-temp
-print("Kurang {} ayat untuk menuju Juz {}".format(totalKurangAyatDiJuzItu,cekJuz(totalAyat)+1))
+juzSelanjutnya=cekJuz(totalAyat)+1
+if juzSelanjutnya == 31:
+    print("Kurang {} ayat untuk menuju Juz {}".format(totalKurangAyatDiJuzItu,"Khatam"))
+else:
+    print("Kurang {} ayat untuk menuju {}".format(totalKurangAyatDiJuzItu,juzSelanjutnya))
 sekian = 1- (temp / JUZ[cekJuz(totalAyat)-1]) 
 
 
@@ -272,7 +276,7 @@ for i in range(hariMenujuKhatam):
     while tempStatusLoop:
 
         #jika sudah ayat 6236 maka tidak perlu mengecek ayat selanjutnya
-        if tempHitungAyat == 6236: 
+        if tempHitungAyat == TOTALAYATALQURAN: 
             break    
 
         #cek bobot ayat selanjutnya
