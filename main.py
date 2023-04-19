@@ -202,7 +202,9 @@ def cekJuz(InputTotalAyat):
 
 # #calcuating days left
 # resultDay=targetKhatam - startDate
-# print("{} Hari lagi".format(resultDay.days))
+#hariMenujuKhatam = resultDay.days
+hariMenujuKhatam = 16
+# print("{} Hari lagi".format(hariMenjuKhatam))
 
 #input last read
 lastReadAyat = int(input("Last Read (ayat):")) # ayat ke 2
@@ -253,7 +255,7 @@ print("Detail Kurang Juz :",totalKurangJuz + sekian)
 #cek kurang bobot menuju akhir dari kurang brp ayat menuju akhir
 kurangBobot=( totalKurangJuz * BOBOTPERJUS)+(totalKurangAyatDiJuzItu * BOBOT[sekarangJuz-1])
 print("Total Kurang Bobot",kurangBobot)
-bobotHarian = kurangBobot / 30#int(resultDay.days)  #ubah hari left di sini
+bobotHarian = kurangBobot / hariMenujuKhatam#int(resultDay.days)  #ubah hari left di sini
 print("Bobot Harian :",bobotHarian)
 
 
@@ -266,9 +268,15 @@ tempStatusLoop = 1
 #     print(i)
 #     i+=1
 
-for i in range(30):
+for i in range(hariMenujuKhatam):
     while tempStatusLoop:
+
+        #jika sudah ayat 6236 maka tidak perlu mengecek ayat selanjutnya
+        if tempHitungAyat == 6236: 
+            break    
+
         #cek bobot ayat selanjutnya
+        # print("Temp hitung ayat sebelum di cek ayat selanjutnya",tempHitungAyat)
         bobotAyatSelanjutnya=BOBOT[cekJuz(tempHitungAyat +1)-1]
         #print("Bobot Ayat Selanjutnya", bobotAyatSelanjutnya)
 
@@ -282,13 +290,20 @@ for i in range(30):
             #print("Total Ayat menjadi",tempHitungAyat)
             #print("")
             
-        else:
-            tempStatusLoop=False        
-            tempBobotHarian += bobotHarian
-
+        else: #jika temp bobot harian habis ( point kurang untuk membeli ayat selanjutnya)
             #karena berhenti di 6235 (kurang1  ayat) maka menambahkan score biar selesai perhitungan
             if tempHitungAyat == 6235:
-                tempHitungAyat += 1
+                #print("karena 6235 maka temp ++")
+                #tempHitungAyat += 1
+                # print("Temp bobot harian sekarang:",tempBobotHarian)
+                tempBobotHarian+= bobotAyatSelanjutnya*2
+                # print("Temp bobot harian sesudah di tambah:",tempBobotHarian)
+            else:
+                tempStatusLoop=False   
+                tempBobotHarian += bobotHarian
+                    
+
+            
 
             print("Bobot harian sebelum {} di tambah bobot harian hari berikutnya {}".format(tempBobotHarian-bobotHarian,tempBobotHarian))
     
