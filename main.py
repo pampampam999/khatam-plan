@@ -1,7 +1,12 @@
 import datetime
 
-#Data 
-TOTALAYATALQURAN = 6236
+################################################################
+#                   github.com/pampampam999                    #
+################################################################
+
+
+#Constanta
+TOTALAYATALQURAN = 6236 #Jumlah total ayat alquran yang di pakai
 JUZ = [
         148,
         111,
@@ -151,17 +156,18 @@ SURAH = [
     6,
 
 ]
-BOBOTPERJUS=1000
+BOBOTPERJUS=1000 #Setiap Juz di berikan Bobot sama rata , untuk menentukan score per ayat
 
-BOBOT = list()
-for i in range(30):
+BOBOT = list() #Variable bobot per ayat pada Juz tersebut
+for i in range(30): #Perhitungan dan memasukkan BOBOT per ayat 
     temp=BOBOTPERJUS/JUZ[i]
     BOBOT.append(temp)
     #print(i,BOBOT[i])
 
 
 ########################################################################
-
+#Function
+########################################################################
 def cekJuz(InputTotalAyat):
     hasilJuz = 1
     tempJuz = 0
@@ -178,7 +184,7 @@ def cekJuz(InputTotalAyat):
                 tempJuz += JUZ[i]    
         
     return hasilJuz
-    
+
 
 #input target
 inputTargetDay = int(input("Target Khatam (D) :"))
@@ -309,7 +315,7 @@ for i in range(hariMenujuKhatam):
 
             
 
-            print("Bobot harian sebelum {} di tambah bobot harian hari berikutnya {}".format(tempBobotHarian-bobotHarian,tempBobotHarian))
+            # print("Bobot harian sebelum {} di tambah bobot harian hari berikutnya {}".format(tempBobotHarian-bobotHarian,tempBobotHarian))
     
     print("Hari ke {} sampai ayat ke {}".format(i+1,tempHitungAyat))
     tempStatusLoop = 1
